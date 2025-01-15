@@ -39,6 +39,10 @@ Phonotate.App stores all your data in a local **SQLite database**. None of your 
 
 ---
 
+## 🤩 Getting Started
+
+When opening the app, click on the settings gear icon in the top right and enter the appropriate URLs and tokens.
+
 ## 📷 Screenshots
 
 ![Projects Page](readme/screenshot1.jpg)
