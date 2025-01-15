@@ -54,7 +54,8 @@
       "css/**/*",
       "!**/data",
       "!**/*.map",
-      "!**/data/*.db"
+      "!**/data/*.db",
+      "!**readme/**/*"
     ],
     "win": {
       "target": "nsis"

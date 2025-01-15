@@ -39,6 +39,16 @@ Phonotate.App stores all your data in a local **SQLite database**. None of your 
 
 ---
 
+## 📷 Screenshots
+
+![Projects Page](readme/screenshot1.jpg)
+
+![Project Page](readme/screenshot2.jpg)
+
+![Project Page](readme/screenshot3.jpg)
+
+![Create A Recording](readme/screenshot4.jpg)
+
 ## 🚀 Requirements
 
 ### **Option 1: Fully Open-Source Workflow**
@@ -146,7 +156,7 @@ Here’s an updated **README** section that includes instructions for building t
 2. **Build the app:**
    - This will package the app into a standalone executable for your platform (e.g., `.exe` for Windows, `.dmg` for macOS):
      ```bash
-     npm run build
+     npm run package
      ```
 
 3. **Locate the build files:**
