@@ -114,6 +114,10 @@ When opening the app for the first time, click on the settings gear icon in the 
    - In-app documentation and troubleshooting.
 5. **Fix Electron not packing correctly**
    - Working with Electron has its problems.
+6. **Ability to edit prompt**
+   - Need to add ability to edit ground truth in
+   the record new sample so you can change words
+   before reading if desired.
 
 ---
 
