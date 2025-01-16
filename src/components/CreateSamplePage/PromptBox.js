@@ -10,7 +10,7 @@ const PromptBox = ({ loading, prompt, onRetry }) => {
             <p>Getting new prompt...</p>
           </div>
         ) : prompt ? (
-          <h5>{prompt}</h5>
+          <h5>{prompt} ({prompt.length})</h5>
         ) : (
           <div>
             <p>Failed to fetch prompt. Please try again.</p>
