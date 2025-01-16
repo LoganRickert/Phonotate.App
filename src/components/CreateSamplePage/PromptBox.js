@@ -17,13 +17,13 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
     setIsEditing(!isEditing);
   };
 
-  const handlePlayClick = async () => {
+  const handlePlayClick = async (text, singleWord = false) => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
 
       try {
-        const audioUrl = await onPlay(editedPrompt);
+        const audioUrl = await onPlay(text, singleWord);
         audioRef.current.src = audioUrl;
         audioRef.current.play();
       } catch (error) {
@@ -31,6 +31,35 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
         alert('Failed to play audio. Please try again.');
       }
     }
+  };
+
+  const renderPromptText = () => {
+    if (!editedPrompt) return null;
+
+    return editedPrompt.split(' ').map((word, index) => (
+      <span
+        key={index}
+        className="word"
+        style={{
+          cursor: 'pointer',
+          margin: '0 3px',
+          display: 'inline-block',
+          padding: '2px 4px',
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.backgroundColor = 'black';
+          e.target.style.color = 'white';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.backgroundColor = 'transparent';
+          e.target.style.color = 'inherit';
+        }}
+        onClick={() => handlePlayClick(word, true)}
+        aria-label={`Play word: ${word}`}
+      >
+        {word}
+      </span>
+    ));
   };
 
   return (
@@ -57,8 +86,12 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
                   aria-label="Edit prompt text"
                 />
               ) : (
-                <h5 tabIndex="0" aria-live="polite">
-                  {editedPrompt} ({editedPrompt.length})
+                <h5
+                  tabIndex="0"
+                  aria-live="polite"
+                  style={{ textAlign: 'left', wordWrap: 'break-word' }}
+                >
+                  {renderPromptText()} ({editedPrompt.length})
                 </h5>
               )}
               <audio ref={audioRef} onEnded={() => setIsPlaying(false)} />
@@ -69,7 +102,7 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
       <div className="d-flex justify-content-between mb-3">
         <button
           className="btn btn-primary d-flex align-items-center"
-          onClick={handlePlayClick}
+          onClick={() => handlePlayClick(editedPrompt)}
           aria-label={'Play audio'}
         >
           <i className={`fas ${isPlaying ? 'fa-stop' : 'fa-play'}`} aria-hidden="true"></i>
@@ -83,14 +116,16 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
           <i className={`fas ${isEditing ? 'fa-save' : 'fa-edit'}`} aria-hidden="true"></i>
           <span className="ms-2">{isEditing ? 'Save' : 'Edit'}</span>
         </button>
-        {!loading && !editedPrompt && !isEditing && <button
-          className="btn btn-danger d-flex align-items-center"
-          onClick={onRetry}
-          aria-label="Retry fetching prompt"
-        >
-          <i className="fas fa-redo" aria-hidden="true"></i>
-          <span className="ms-2">Retry</span>
-        </button>}
+        {!loading && !editedPrompt && !isEditing && (
+          <button
+            className="btn btn-danger d-flex align-items-center"
+            onClick={onRetry}
+            aria-label="Retry fetching prompt"
+          >
+            <i className="fas fa-redo" aria-hidden="true"></i>
+            <span className="ms-2">Retry</span>
+          </button>
+        )}
       </div>
     </>
   );
