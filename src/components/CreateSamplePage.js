@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams, useResolvedPath } from 'react-router-dom';
+import { useFetcher, useNavigate, useParams, useResolvedPath } from 'react-router-dom';
 import PromptBox from './CreateSamplePage/PromptBox';
 import WaveformDisplay from './CreateSamplePage/WaveformDisplay';
 import RecordingControls from './CreateSamplePage/RecordingControls';
@@ -15,6 +15,7 @@ const CreateSamplePage = () => {
   const [recording, setRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioUrl, setAudioUrl] = useState(null);
+  const [promptAudioUrl, setPromptAudioUrl] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const audioChunks = useRef([]);
   const [liveData, setLiveData] = useState(null);
@@ -26,6 +27,10 @@ const CreateSamplePage = () => {
   useEffect(() => {
     fetchPrompt();
   }, []);
+
+  useEffect(() => {
+    setPromptAudioUrl(null);
+  }, [prompt]);
 
   const fetchPrompt = async () => {
     setLoading(true);
@@ -309,6 +314,47 @@ const CreateSamplePage = () => {
     fetchPrompt();
   };
 
+  const handleSave = (newPrompt) => {
+    setPrompt(newPrompt);
+  };
+
+  const handlePlay = async (text) => {
+    const settings = await window.electronAPI.getSettings();
+    let _promptAudioUrl = promptAudioUrl;
+
+    try {
+      if (!promptAudioUrl) {
+        const response = await fetch(settings.openaiTTSUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${settings.openaiToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            input: text,
+            voice: settings.openaiTTSVoice || 'af_bella', // Use an appropriate voice name
+            format: 'audio/mp3',       // Format for the output audio
+            speed: 1.1
+          }),
+        });
+    
+        if (!response.ok) {
+          throw new Error(`TTS API error: ${response.statusText}`);
+        }
+    
+        const blob = await response.blob();
+        _promptAudioUrl = URL.createObjectURL(blob);
+    
+        setPromptAudioUrl(_promptAudioUrl);
+      }
+      
+      return _promptAudioUrl;
+    } catch (error) {
+      console.error('Error with TTS API:', error);
+      alert('Failed to generate audio from the OpenAI API. Please try again.');
+    }
+  };
+
   const handleNext = async () => {
     const project = await window.electronAPI.getProject(id);
     const storagePath = project.storage_path;
@@ -383,7 +429,13 @@ const CreateSamplePage = () => {
         </button>
       </div>
 
-      <PromptBox loading={loading} prompt={prompt} onRetry={fetchPrompt} />
+      <PromptBox
+        loading={loading}
+        prompt={prompt}
+        onRetry={fetchPrompt}
+        onPlay={handlePlay}
+        onSave={handleSave}
+      />
       <WaveformDisplay liveData={liveData} />
       <RecordingControls
         recording={recording}

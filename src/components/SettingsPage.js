@@ -9,7 +9,9 @@ const SettingsPage = () => {
     asrServiceUrl: '', // Whisper ASR service URL
     phonemizationUrl: 'http://localhost:8000', // Default phonemization URL
     openaiWhisperUrl: '', // OpenAI Whisper URL,
-    openaiToken: ''
+    openaiToken: '',
+    openaiTTSUrl: '',
+    openaiTTSVoice: ''
   });
 
   useEffect(() => {
@@ -23,6 +25,8 @@ const SettingsPage = () => {
         phonemizationUrl: fetchedSettings.phonemizationUrl || '',
         openaiWhisperUrl: fetchedSettings.openaiWhisperUrl || '', // Load OpenAI Whisper URL
         openaiToken: fetchedSettings.openaiWhisperToken || '',
+        openaiTTSUrl: fetchedSettings.openaiTTSUrl || '',
+        openaiTTSVoice: fetchedSettings.openaiTTSVoice || ''
     });
     });
   }, []);
@@ -127,7 +131,7 @@ const SettingsPage = () => {
       {/* OpenAI Whisper URL */}
       <div className="mb-4">
         <label htmlFor="openaiWhisperUrl" className="form-label">
-          OpenAI Whisper URL
+          OpenAI Whisper URL (If Not ASR)
         </label>
         <input
           type="text"
@@ -140,10 +144,42 @@ const SettingsPage = () => {
         />
       </div>
 
-      {/* OpenAI Whisper URL */}
+      {/* OpenAI TTS URL */}
+      <div className="mb-4">
+        <label htmlFor="openaiTTSUrl" className="form-label">
+          OpenAI TTS URL
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="openaiTTSUrl"
+          name="openaiTTSUrl"
+          value={settings.openaiTTSUrl}
+          onChange={handleChange}
+          placeholder="https://api.openai.com/v1/audio/speech"
+        />
+      </div>
+
+      {/* OpenAI TTS URL */}
+      <div className="mb-4">
+        <label htmlFor="openaiTTSVoice" className="form-label">
+          OpenAI TTS Voice
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="openaiTTSVoice"
+          name="openaiTTSVoice"
+          value={settings.openaiTTSVoice}
+          onChange={handleChange}
+          placeholder="af_bella"
+        />
+      </div>
+
+      {/* OpenAI Whisper Token */}
       <div className="mb-4">
         <label htmlFor="openaiWhisperToken" className="form-label">
-          OpenAI Whisper Token
+          OpenAI Whisper / TTS Token
         </label>
         <input
           type="text"

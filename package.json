@@ -1,6 +1,6 @@
 {
   "name": "phonotate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "src/main.js",
   "permissions": {
     "media": true
@@ -10,7 +10,8 @@
     "start": "cross-env NODE_ENV=development webpack --mode development && electron .",
     "build": "cross-env NODE_ENV=development webpack --mode development",
     "build:bundle": "cross-env NODE_ENV=production webpack --mode=production",
-    "package": "npm run build:bundle && electron-builder"
+    "package": "npm run build:bundle && electron-builder",
+    "rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "keywords": [],
   "author": "",
