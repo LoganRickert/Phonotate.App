@@ -62,10 +62,12 @@ When opening the app for the first time, click on the settings gear icon in the 
 ### **Option 1: Fully Open-Source Workflow**
 - **OpenWeb UI** for AI-generated prompts ([GitHub](https://github.com/open-webui/open-webui)).
 - **Whisper ASR Webservice** for transcription ([GitHub](https://github.com/ahmetoner/whisper-asr-webservice)).
+- **Kokoro-FastAPI** For text to speech generation ([GitHub](https://github.com/remsky/Kokoro-FastAPI)).
 
 ### **Option 2: OpenAI Workflow**
 - **OpenAI GPT API** for prompt generation.
 - **OpenAI Whisper API** for transcription.
+- **OpenAI TTS API** for TTS.
 
 ### **Phonemization (Optional)**
 - To generate phonemized validation data, you'll need an **espeak** API backend. 
@@ -99,7 +101,8 @@ When opening the app for the first time, click on the settings gear icon in the 
 - Live waveform visualization during recording.
 - Options to retry, save, or skip prompts.
 - Transcription feedback to evaluate recording quality.
-
+- Play TTS of prompt or specific word to hear how it sounds.
+- Edit prompt right on page to fix issues with flow.
 ---
 
 ## 🔧 Future Updates
@@ -114,10 +117,6 @@ When opening the app for the first time, click on the settings gear icon in the 
    - In-app documentation and troubleshooting.
 5. **Fix Electron not packing correctly**
    - Working with Electron has its problems.
-6. **Ability to edit prompt**
-   - Need to add ability to edit ground truth in
-   the record new sample so you can change words
-   before reading if desired.
 
 ---
 
@@ -143,7 +142,7 @@ Here’s an updated **README** section that includes instructions for building t
 3. **Rebuild better-sqlite3 for Electron:**
    - Electron uses a specific version of Node.js, so you need to rebuild native modules like `better-sqlite3` to match Electron’s environment.
    ```bash
-   npm run rebuild-sqlite
+   npm run rebuild
    ```
 
 4. **Run the app in development mode:**
@@ -162,7 +161,7 @@ Here’s an updated **README** section that includes instructions for building t
      ```
    - Rebuild `better-sqlite3` for production:
      ```bash
-     npm run rebuild-sqlite
+     npm run rebuild
      ```
 
 2. **Build the app:**
@@ -172,15 +171,14 @@ Here’s an updated **README** section that includes instructions for building t
      ```
 
 3. **Locate the build files:**
-   - The final build will be located in the `dist` folder. Distribute the files from this folder as needed.
+   - The final build will be located in the `release-build` folder. Distribute the files from this folder as needed.
 
 ---
 
 ### **Scripts Overview**
 
 - `npm start` – Launch the app in development mode.
-- `npm run rebuild-sqlite` – Rebuild `better-sqlite3` for Electron’s environment.
-- `npm run build` – Package the app into a production-ready executable.
+- `npm run rebuild` – Rebuild `better-sqlite3` for Electron’s environment.
 
 ---
 
