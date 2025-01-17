@@ -327,6 +327,7 @@ const CreateSamplePage = () => {
     const wavFilePath24 = `${storagePath}/${uuid}-24.wav`;
     const wavFilePath = `${storagePath}/${uuid}.wav`;
     const waveformFilePath = `${storagePath}/${uuid}.jpg`;
+    const groundTruthPath = `${storagePath}/${uuid}.txt`;
 
     // Update the recent prompts list (keep only the last 20)
     setRecentPrompts((prevPrompts) => {
@@ -351,6 +352,11 @@ const CreateSamplePage = () => {
       // Save waveform
       const waveformFile = exportWaveform(liveData);
       await window.electronAPI.saveFile(waveformFilePath, waveformFile);
+
+      // Save the prompt to a txt file. Nothing in the application uses it
+      // but having this data might be useful for another application and it
+      // has basically no impact on us.
+      await window.electronAPI.saveFile(groundTruthPath, prompt);
 
       // Add to database
       const newSample = {
