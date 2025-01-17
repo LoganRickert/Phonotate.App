@@ -2,6 +2,10 @@
   "name": "phonotate",
   "version": "1.0.5",
   "main": "src/main.js",
+  "author": {
+    "name": "Logan Rickert",
+    "email": "logan@loganrickert.com"
+  },
   "permissions": {
     "media": true
   },
@@ -10,11 +14,10 @@
     "start": "cross-env NODE_ENV=development webpack --mode development && electron .",
     "build": "cross-env NODE_ENV=development webpack --mode development",
     "build:bundle": "cross-env NODE_ENV=production webpack --mode=production",
-    "package": "npm run build:bundle && electron-builder",
+    "package": "npm run build:bundle && electron-builder --mac --win --linux",
     "rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
@@ -62,7 +65,24 @@
       "!**readme/**/*"
     ],
     "win": {
-      "target": "nsis"
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
     }
   }
 }
