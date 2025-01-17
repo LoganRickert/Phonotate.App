@@ -43,7 +43,7 @@ Phonotate.App stores all your data in a local **SQLite database**. None of your 
 
 Download the application
 
-https://github.com/LoganRickert/Phonotate.App/releases/tag/1.0.0
+https://github.com/LoganRickert/Phonotate.App/releases
 
 When opening the app for the first time, click on the settings gear icon in the top right and enter the appropriate URLs and tokens.
 
