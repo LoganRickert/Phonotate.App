@@ -103,6 +103,43 @@ When opening the app for the first time, click on the settings gear icon in the 
 - Transcription feedback to evaluate recording quality.
 - Play TTS of prompt or specific word to hear how it sounds.
 - Edit prompt right on page to fix issues with flow.
+
+---
+
+## 🚀 Settings
+
+1. **Language**
+  - Doesn't do anything right now.
+2. **ChatGPT API URL**
+  - The completions URL
+  - Ex (Open WebUI): https://chatgpt.phonotate.app/api/chat/completions
+  - Ex (OpenAI): https://api.openai.com/v1/chat/completions
+3. **ChatGPT Token**
+  - The token. This will only be used for chat completions.
+4. **Model**
+  - The model you want to use to generate prompts.
+  - Ex (Open WebUI): llama3.2:latest
+  - Ex (OpenAI): gpt-4o-turbo
+5. **ASR Service URL**
+  - For whisper, you can either use an ASR service or OpenAI. If this URL is not set, it will try and use the OpenAI value.
+  - Ex: https://asr.phonotate.app/asr
+6. **OpenAI Whisper URL (If Not ASR)**
+  - See above. Provide your token for this URL at **OpenAI Whisper / TTS Token**
+  - Ex: https://api.openai.com/v1/audio/transcriptions
+7. **OpenAI TTS URL**
+  - If you want to have TTS, you can insert it here. Provide your token for this URL at **OpenAI Whisper / TTS Token**
+  - Ex: https://tts.phonotate.app/v1/audio/speech
+  - Ex: https://api.openai.com/v1/audio/speech
+8. **OpenAI TTS Voice**
+  - The voice you want to use with TTS. You can use a service like [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) or OpenAI.
+  - Ex: af_bella
+  - Ex: alloy
+9. **OpenAI Whisper / TTS Token**
+  - The token to use for the Whisper and TTS service. If you are using ASR and Kokoro, you can leave this blank.
+10. **Phonemization Service URL**
+  - The URL for phonemes transcription.
+  - Ex: https://phonemization.phonotate.app/phonemize/
+
 ---
 
 ## 🔧 Future Updates
