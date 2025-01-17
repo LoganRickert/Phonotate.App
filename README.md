@@ -110,13 +110,13 @@ When opening the app for the first time, click on the settings gear icon in the 
 1. **S3 Storage Support:**
    - Store and retrieve files from any S3-compatible cloud storage.
 2. **Audio Quality Enhancements:**
-   - Normalize audio and add compression to improve recording consistency.
+   - Normalize audio and add compression to improve recording consistency. [#2](https://github.com/LoganRickert/Phonotate.App/issues/2)
 3. **Improved UI/UX:**
    - A more modern design for better usability.
 4. **Help Page:**
    - In-app documentation and troubleshooting.
 5. **Fix Electron not packing correctly**
-   - Working with Electron has its problems.
+   - Working with Electron has its problems. [#1](https://github.com/LoganRickert/Phonotate.App/issues/1)
 
 ---
 
