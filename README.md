@@ -120,10 +120,6 @@ When opening the app for the first time, click on the settings gear icon in the 
 
 ---
 
-Here’s an updated **README** section that includes instructions for building the app, both for development and production:
-
----
-
 ## 🛠 How to Build
 
 ### **Development Setup**
