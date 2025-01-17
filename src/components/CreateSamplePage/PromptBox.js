@@ -8,6 +8,10 @@ const PromptBox = ({ loading, prompt, onRetry, onPlay, onSave }) => {
 
   useEffect(() => {
     setEditedPrompt(prompt);
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
   }, [prompt]);
 
   const handleEditClick = () => {

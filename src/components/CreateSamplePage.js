@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PromptBox from './CreateSamplePage/PromptBox';
 import WaveformDisplay from './CreateSamplePage/WaveformDisplay';
 import RecordingControls from './CreateSamplePage/RecordingControls';
-import { exportWaveform, saveWav } from '../audio';
+import { exportWaveform, saveWav, encodeWav, resampleAudio } from '../audio';
 import TranscriptionBox from './CreateSamplePage/TranscriptionBox';
 import { generateModelMessage } from '../utils';
 
@@ -127,9 +127,19 @@ const CreateSamplePage = () => {
 
       recorder.onstop = async () => {
         const settings = await window.electronAPI.getSettings();
+
         const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
-        const url = URL.createObjectURL(audioBlob);
-        setAudioUrl(url);
+        
+        // Re-encode the wave file so <Audio> will correctly
+        // play the file and know how long it is.
+        const arrayBuffer = await audioBlob.arrayBuffer();
+        const audioContext = new AudioContext();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const processedBuffer = await resampleAudio(audioBuffer, 44100);
+        const wavData = encodeWav(processedBuffer);
+        const wavDataBlob = new Blob([wavData], { type: "audio/wav" });
+
+        setAudioUrl(URL.createObjectURL(wavDataBlob));
 
         try {
           const asrServiceUrl = settings.asrServiceUrl;

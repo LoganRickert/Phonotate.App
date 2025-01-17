@@ -25,6 +25,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   devtool: 'source-map', // Use source maps for debugging

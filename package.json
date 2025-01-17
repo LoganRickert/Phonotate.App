@@ -1,6 +1,6 @@
 {
   "name": "phonotate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "src/main.js",
   "permissions": {
     "media": true
@@ -32,12 +32,15 @@
   "dependencies": {
     "better-sqlite3": "^11.7.2",
     "bootstrap": "^5.3.3",
+    "css-loader": "^7.1.2",
     "diff": "^7.0.0",
     "electron-is-dev": "^3.0.1",
     "path-browserify": "^1.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-h5-audio-player": "^3.10.0-rc.1",
     "react-router-dom": "^7.1.1",
+    "style-loader": "^4.0.0",
     "uuid": "^11.0.5"
   },
   "build": {

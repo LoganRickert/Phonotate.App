@@ -1,5 +1,7 @@
 import React from 'react';
 import { preprocessText, highlightDifferences } from '../utils';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 const SampleRow = ({ sample, onEdit, onThumbsChange, onDelete }) => {
   if (!sample) return null;
@@ -71,10 +73,12 @@ const SampleRow = ({ sample, onEdit, onThumbsChange, onDelete }) => {
           {/* Audio player */}
           <div className="mb-3">
             {filePath ? (
-              <audio controls style={{ width: '100%' }}>
-                <source src={filePath} type="audio/wav" />
-                Your browser does not support the audio element.
-              </audio>
+              <AudioPlayer
+                src={filePath}
+                style={{ width: '100%' }}
+                onPlay={(e) => console.log('Playing audio')}
+                showJumpControls={false}
+              />
             ) : (
               <p>No audio file available</p>
             )}
